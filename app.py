@@ -18,7 +18,7 @@ def index():
 @app.route("/toggle", methods=["POST"])
 def toggle():
     global LIGHT_ON
-    LIGHT_ON = !LIGHT_ON
+    LIGHT_ON = not LIGHT_ON
     GPIO.output(21, LIGHT_ON)
     return jsonify({"status": "success"})
 
