@@ -1,6 +1,13 @@
+import RPi.GPIO as GPIO
 from flask import Flask, jsonify, render_template
 
 app = Flask("app")
+
+LIGHT_GPIO = 21
+LIGHT_ON = False
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(21, GPIO.OUT)
 
 
 @app.route("/")
@@ -10,6 +17,9 @@ def index():
 
 @app.route("/toggle", methods=["POST"])
 def toggle():
+    global LIGHT_ON
+    LIGHT_ON = !LIGHT_ON
+    GPIO.output(21, LIGHT_ON)
     return jsonify({"status": "success"})
 
 
